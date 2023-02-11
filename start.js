@@ -8,7 +8,7 @@ const app = express();
 
 app.get("/python", callName);
 
-app.get("/python", test);
+app.get("/test", test);
 
 app.get("/check", function(req,res){
     res.send("Hi there this is testing check...!!!")
