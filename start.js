@@ -10,7 +10,7 @@ app.get("/python", callName);
 
 app.get("/test", test);
 
-app.get("/check", function(req,res){
+app.get("/", function(req,res){
     res.send("Hi there this is testing check...!!!")
 });
 
