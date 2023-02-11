@@ -8,6 +8,8 @@ const app = express();
 
 app.get("/python", callName);
 
+app.get("/python", test);
+
 app.get("/check", function(req,res){
     res.send("Hi there this is testing check...!!!")
 });
@@ -20,6 +22,16 @@ function callName(req, res){
 
     process.stdout.on("data", function (data){
         res.send(data.toString());
+    });
+};
+
+function test(req, res){
+    // var spawn = require("child_process").spawn;
+
+    var process = spawn("python", ["./test.py"])
+
+//     process.stdout.on("data", function (data){
+//         res.send(data.toString());
     });
 };
 
