@@ -30,8 +30,8 @@ function test(req, res){
 
     var process = spawn("python", ["./test.py"])
 
-//     process.stdout.on("data", function (data){
-//         res.send(data.toString());
+     process.stdout.on("data", function (data){
+         res.send(data.toString());
     });
 };
 
