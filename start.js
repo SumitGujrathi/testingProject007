@@ -36,7 +36,7 @@ function test(req, res){
 };
 
 
-app.listen("mongodb+srv://sumitgujrathi24:8lpVTDIBtyHKWRH3@sumit.ybjewjm.mongodb.net/NSE?retryWrites=true&w=majority", function(){
+app.listen(process.env.PORT, function(){
     console.log("running on")
 })
 
