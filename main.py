@@ -27,30 +27,29 @@ OffDates = ["01-26-2023","03-07-2023","03-30-2023","04-04-2023","04-07-2023","04
 
 # NSE Data Pull + Data Clearing + MongoDB Funciton
 
-def Pull_Chain_Data(Symbol):
 
-    # MongoDB Connection
+ # MongoDB Connection
 
-    Dataset_Name = "NSE"
-    Collection = Symbol
+Dataset_Name = "NSE"
+Collection = "NIFTY" 
 
-    linkMD = f"mongodb+srv://sumitgujrathi24:8lpVTDIBtyHKWRH3@sumit.ybjewjm.mongodb.net/{Dataset_Name}?retryWrites=true&w=majority"
+linkMD = f"mongodb+srv://sumitgujrathi24:8lpVTDIBtyHKWRH3@sumit.ybjewjm.mongodb.net/{Dataset_Name}?retryWrites=true&w=majority"
 
-    Client = pymongo.MongoClient(linkMD, 27017)
+Client = pymongo.MongoClient(linkMD, 27017)
 
-    db = Client[Dataset_Name]
+db = Client[Dataset_Name]
 
-    DATA_NSE = db[Collection]
+DATA_NSE = db[Collection]
 
       
-    # Date  format => YYYY,MM,DD, HH,MM,SS
-    Pull_Time = datetime.now()
-    OI = {"Date":Pull_Time, "PE_OI": 1,"CE_OI":1, "PE_COI":1, "CE_COI":1, "NIFTY":1, "PCR":1, "PE_Volatility": 0, "CE_Volatility": 1}
-    DATA_NSE.insert_one(OI)
-    print(OI(
+# Date  format => YYYY,MM,DD, HH,MM,SS
+Pull_Time = datetime.now()
+OI = {"Date":Pull_Time, "PE_OI": 1,"CE_OI":1, "PE_COI":1, "CE_COI":1, "NIFTY":1, "PCR":1, "PE_Volatility": 0, "CE_Volatility": 1}
+DATA_NSE.insert_one(OI)
+
+print(OI)
 
  
-Pull_Chain_Data(Symbol="NIFTY")
 
 # Date Setting 
 
