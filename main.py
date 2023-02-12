@@ -40,37 +40,37 @@ def Pull_Chain_Data(Symbol):
 
     # list of item to be data framed => 1 = 'expiryDates' , 2 = 'data' , 3 = 'underlyingValue' , 4 = 'strikePrices'
 
-    try:
-        DATA = session.get(url, headers=headers, timeout=0.5, cookies=cookies).json()['records']['data']
+    
+    DATA = session.get(url, headers=headers, timeout=0.5, cookies=cookies).json()['records']['data']
 
-        Cols = ['PE.underlyingValue','expiryDate','PE.openInterest','PE.changeinOpenInterest','PE.impliedVolatility','PE.lastPrice','PE.totalBuyQuantity','PE.totalSellQuantity','strikePrice','CE.totalSellQuantity','CE.totalBuyQuantity','CE.lastPrice','CE.impliedVolatility','CE.changeinOpenInterest','CE.openInterest']
+    Cols = ['PE.underlyingValue','expiryDate','PE.openInterest','PE.changeinOpenInterest','PE.impliedVolatility','PE.lastPrice','PE.totalBuyQuantity','PE.totalSellQuantity','strikePrice','CE.totalSellQuantity','CE.totalBuyQuantity','CE.lastPrice','CE.impliedVolatility','CE.changeinOpenInterest','CE.openInterest']
 
-        df = pd.json_normalize(DATA)
+    df = pd.json_normalize(DATA)
 
-        df = df.fillna(0)
+    df = df.fillna(0)
 
-        df = df[Cols]
+    df = df[Cols]
 
         # Output Data
 
-        PE_OI = df['PE.openInterest'].sum()
-        PE_COI =  df['PE.changeinOpenInterest'].sum()
-        PE_Volat =  np.round(df['PE.impliedVolatility'].mean(),2)
+    PE_OI = df['PE.openInterest'].sum()
+    PE_COI =  df['PE.changeinOpenInterest'].sum()
+    PE_Volat =  np.round(df['PE.impliedVolatility'].mean(),2)
 
-        CE_OI = df['CE.openInterest'].sum()
-        CE_COI = df['CE.changeinOpenInterest'].sum()
-        CE_Volat = np.round(df['CE.impliedVolatility'].mean(),2)
+    CE_OI = df['CE.openInterest'].sum()
+    CE_COI = df['CE.changeinOpenInterest'].sum()
+    CE_Volat = np.round(df['CE.impliedVolatility'].mean(),2)
 
-        NIFTY = df['PE.underlyingValue'].max()
-        PCR = np.round(((PE_COI / CE_COI) -1),2)
+    NIFTY = df['PE.underlyingValue'].max()
+    PCR = np.round(((PE_COI / CE_COI) -1),2)
 
         # Date  format => YYYY,MM,DD, HH,MM,SS
-        Pull_Time = datetime.now()
-        OI = {"Date":Pull_Time, "PE_OI":PE_OI,"CE_OI":CE_OI, "PE_COI":PE_COI, "CE_COI":CE_COI, "NIFTY":NIFTY, "PCR":PCR, "PE_Volatility": PE_Volat, "CE_Volatility": CE_Volat}
+    Pull_Time = datetime.now()
+    OI = {"Date":Pull_Time, "PE_OI":PE_OI,"CE_OI":CE_OI, "PE_COI":PE_COI, "CE_COI":CE_COI, "NIFTY":NIFTY, "PCR":PCR, "PE_Volatility": PE_Volat, "CE_Volatility": CE_Volat}
 
-        DATA_NSE.insert_one(OI)
+    DATA_NSE.insert_one(OI)
 
-        print(OI)
+    print(OI)
 
 
 
@@ -78,8 +78,8 @@ def Pull_Chain_Data(Symbol):
 
         # OI_DATA.to_csv(f'{path}\\OPTION_OI_DATA.csv', mode='a', index=False, header=False)
 
-    except:
-        pass
+
+
 
 
 
